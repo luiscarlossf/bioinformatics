@@ -3,15 +3,15 @@
     Aluno: Luis Carlos da Silva Filho
     Sequência 1: GLSDGEWQQVLNVWGKVEADIAGHGQEVLIRLFTGHPETLEKFDKFKHLKTEAEMKASEDLKKHGTVVLTALGGILKKKGHHEAELKPLAQDHATKHKIPIKYLEFISDAIIHVLHSKHPGDFGADAQGAMTKALELFRNDIAAKYKELGFQG
     Sequência 2: MGLSDGEWQQVLNVWGKVEADIAGHGQEVLIRLFTGHPETLEKFDKFKHLKTEAEMKASEDLKKHGTVVLTALGGILKKKGHHEAELKPLAQSHATKHKIPIKYLEFISDAIIHVLHSKHPGDFGADAQGAMTKALELFRNDIAAKYKELGFQG
-
+    
     =========== ALINHAMENTO LOCAL ==========
-    Score:  58409.0
+    Score:  757
     Sequência 1:  GLSDGEWQQVLNVWGKVEADIAGHGQEVLIRLFTGHPETLEKFDKFKHLKTEAEMKASEDLKKHGTVVLTALGGILKKKGHHEAELKPLAQDHATKHKIPIKYLEFISDAIIHVLHSKHPGDFGADAQGAMTKALELFRNDIAAKYKELGFQG
     Sequência 2:  GLSDGEWQQVLNVWGKVEADIAGHGQEVLIRLFTGHPETLEKFDKFKHLKTEAEMKASEDLKKHGTVVLTALGGILKKKGHHEAELKPLAQSHATKHKIPIKYLEFISDAIIHVLHSKHPGDFGADAQGAMTKALELFRNDIAAKYKELGFQG
     ========================================
 
     ========== ALINHAMENTO GLOBAL ==========
-    Score:  56869.0
+    Score:  747
     Sequência 1:  -GLSDGEWQQVLNVWGKVEADIAGHGQEVLIRLFTGHPETLEKFDKFKHLKTEAEMKASEDLKKHGTVVLTALGGILKKKGHHEAELKPLAQDHATKHKIPIKYLEFISDAIIHVLHSKHPGDFGADAQGAMTKALELFRNDIAAKYKELGFQG
     Sequência 2:  MGLSDGEWQQVLNVWGKVEADIAGHGQEVLIRLFTGHPETLEKFDKFKHLKTEAEMKASEDLKKHGTVVLTALGGILKKKGHHEAELKPLAQSHATKHKIPIKYLEFISDAIIHVLHSKHPGDFGADAQGAMTKALELFRNDIAAKYKELGFQG
     ========================================
@@ -87,6 +87,7 @@ for i in np.flip(np.arange(0, size_line-1), axis=0):
                 scores_matrix[i, j] = _max
         else:
             scores_matrix[i, j] = _max
+print(scores_matrix)
 
 ############################################
 #TRACEBACK
@@ -103,8 +104,8 @@ sequence_set = list()
 for i in indexs_colunm:
     x = i[0]
     y = size_column-1
+    score = scores_matrix[x, y]
     while True:
-        score += scores_matrix[x, y]
         if local and  scores_matrix[x, y]== 0:
             break
         aux = None
@@ -165,7 +166,7 @@ if local:
     print("=========== ALINHAMENTO LOCAL ==========")
 else:
     print("========== ALINHAMENTO GLOBAL ==========")
-print("Score: ", score)
+print("Score: ", int(score))
 print("Sequência 1: ", sequence1)
 print("Sequência 2: ", sequence2)
 print("========================================")
