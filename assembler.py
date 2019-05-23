@@ -1,24 +1,27 @@
-from kdmer import kdMer
-"""
-For test:
-    k=999d=999 
-    GTGGTCGTGAGATGTTGA
-"""
+#Aluno: Luis Carlos da Silva Filho
+
+from kdmer import kdMer, readFasta
 
 def Assembler(k, d):
     """
     Remonta uma sequência genética a partir de um arquivo texto contendo os 
     kdmers em ordem lexicográfica.
-    :param:
-    :retn:
+
+    :param k: tamanho da leitura
+    :param d: distância entre as leituras
+
     """
+
+    kdmers = None
+    prefixs = list()
+    sufixs = list()
+
     with open("k"+str(k)+"d"+str(d)+"mer.txt", "r") as file:
         kdmers  = file.readline()
         kdmers = kdmers.strip('[')
         kdmers = kdmers.strip(']')
         kdmers = kdmers.split(',')
-        prefixs = list()
-        sufixs = list()
+
         for i in kdmers: #Divide os kdmers [ABCD|EFGH] => prefixs = [ABC, EFG], sufixs = [BCD, FGH]
             vertice = i.split('|')
             prefixs.append([vertice[0][0:(k-1)], vertice[1][0:(k-1)]])
@@ -36,35 +39,31 @@ def Assembler(k, d):
                 way2.append(prefixs.index(i))
             except ValueError:
                 way2.append(None)
+    
+    with open("output-k"+str(k)+"d"+str(d)+"mer.fasta", "w") as file:
+        file.write(">k="+str(k)+"d="+str(d)+"\n")
 
         start = way1.index(None)
         tam = len(sufixs[start][0])-1
-
-        print(prefixs[start][0])
-        print(sufixs[start][0][tam])
+        file.write(prefixs[start][0])
+        file.write(prefixs[start][0][tam])
 
         i = way2[start]
         while i != None:
-            print(sufixs[i][0][tam])
+            file.write(sufixs[i][0][tam])
             i = way2[i]
+
         h = 0
         while h <= d:
-            print(i)
             i = way2.index(i)
             h += 1
-        print(prefixs[i][1])
+
+        file.write(prefixs[i][1])
         while i != None:
-            print(sufixs[i][1][tam])
+            file.write(sufixs[i][1][tam])
             i = way2[i]
-
-       
-        
-
-
-
+            
 if __name__ == "__main__":
-    k = int(input("k="))
-    d = int(input("d="))
-    sequence = input("Sequência de Nucleotídeos: ")
-    kdMer(sequence, k, d)
-    Assembler(k, d)
+    info = readFasta()
+    kdMer(info['sequence'], info['k'], info['d'])
+    Assembler(info['k'], info['d'])
