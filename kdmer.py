@@ -6,6 +6,20 @@ sequence = TAATGCCATGGGATGTT
 Saída = 
 """
 
+def readFasta():
+    arquivo = input("Digite o nome do arquivo: (Exemplo: 'nome_arquivo.fasta')  ")
+    dic = {}
+    with open(arquivo, 'r') as fasta:
+        for linha in fasta:
+            if not linha.startswith('>'):
+                dic['sequence'] = linha
+            else:
+                linha = linha.strip('>k=')
+                linha = linha.split('d=')
+                dic['k'] = int(linha[0])
+                dic['d'] = int(linha[1])
+        return dic
+    
 def kdMer(sequence, k, d):
 
     with open("k"+str(k)+"d"+str(d)+"mer.txt", "w") as file:
@@ -21,7 +35,5 @@ def kdMer(sequence, k, d):
         return kdmers
 
 if __name__ == "__main__":
-    k = int(input("k="))
-    d = int(input("d="))
-    sequence = input("Sequência de Nucleotídeos: ")
-    kdMer(sequence, k, d)
+    info = readFasta()
+    kdMer(info['sequence'], info['k'], info['d'])
