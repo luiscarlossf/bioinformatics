@@ -1,12 +1,15 @@
-"""
-Para teste:
-k= 3
-d = 1
-sequence = TAATGCCATGGGATGTT
-Saída = 
-"""
+#Aluno: Luis Carlos da Silva Filho
 
 def readFasta():
+    """
+    Ler um arquivo fasta e retorna um dicionário com as informações
+    do arquivo lido.
+
+    :return dic: dicionário com as informações do arquivo fasta:
+                 tamanho da leitura(k), distância entre as leituras(d) e
+                 a sequência(sequence).
+    """
+
     arquivo = input("Digite o nome do arquivo: (Exemplo: 'nome_arquivo.fasta')  ")
     dic = {}
     with open(arquivo, 'r') as fasta:
@@ -21,6 +24,14 @@ def readFasta():
         return dic
     
 def kdMer(sequence, k, d):
+    """
+    O programa gera, em ordem lexicográfica, os (k,d) mers, em um arquivo texto.
+
+    :param sequence: sequência genômica
+    :param k: tamanho da leitura
+    :param d: distância entre as leituras
+    :return:
+    """
 
     with open("k"+str(k)+"d"+str(d)+"mer.txt", "w") as file:
         tam =len(sequence)
