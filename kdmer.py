@@ -32,18 +32,22 @@ def kdMer(sequence, k, d):
     :param d: distância entre as leituras
     :return:
     """
-
-    with open("k"+str(k)+"d"+str(d)+"mer.txt", "w") as file:
-        tam =len(sequence)
-        kdmers = [sequence[i:(i+k)]+"|"+sequence[(i+k+d):(i+d+k+k)] for i in range(0, tam-(k+d+(k-1)))]
-        kdmers.sort()
-        file.write('[')
-        for i, kdmer in enumerate(kdmers):
-            if i != 0:
-                file.write(',')
-            file.write(kdmer)
-        file.write(']')
-        return kdmers
+    try:
+        with open("k"+str(k)+"d"+str(d)+"mer.txt", "w") as file:
+            tam =len(sequence)
+            kdmers = [sequence[i:(i+k)]+"|"+sequence[(i+k+d):(i+d+k+k)] for i in range(0, tam-(k+d+(k-1)))]
+            kdmers.sort()
+            file.write('[')
+            for i, kdmer in enumerate(kdmers):
+                if i != 0:
+                    file.write(',')
+                file.write(kdmer)
+            file.write(']')
+            print("Arquivo "+"k"+str(k)+"d"+str(d)+"mer.txt"+" criado com sucesso!")
+            return kdmers
+    except Exception:
+        print("Ocorreu algum problema com a criação do arquivo "+"k"+str(k)+"d"+str(d)+"mer.txt!")
+        return None
 
 if __name__ == "__main__":
     info = readFasta()
