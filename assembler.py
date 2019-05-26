@@ -46,7 +46,7 @@ def Assembler(k, d):
         start = way1.index(None)
         tam = len(sufixs[start][0])-1
         file.write(prefixs[start][0])
-        file.write(prefixs[start][0][tam])
+        file.write(sufixs[start][0][tam])
 
         i = way2[start]
         while i != None:
