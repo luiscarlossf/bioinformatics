@@ -2,7 +2,7 @@
 
 from kdmer import kdMer, readFasta
 
-def Assembler(k, d):
+def Assembler(filename):
     """
     Remonta uma sequência genética a partir de um arquivo texto contendo os 
     kdmers em ordem lexicográfica.
@@ -15,8 +15,11 @@ def Assembler(k, d):
     kdmers = None
     prefixs = list()
     sufixs = list()
+    _f = filename.strip('kdmer.txt').split('d')
+    k = int(_f[0])
+    d = int(_f[1])
 
-    with open("k"+str(k)+"d"+str(d)+"mer.txt", "r") as file:
+    with open(filename, "r") as file:
         kdmers  = file.readline()
         kdmers = kdmers.strip('[')
         kdmers = kdmers.strip(']')
@@ -64,6 +67,5 @@ def Assembler(k, d):
             i = way2[i]
             
 if __name__ == "__main__":
-    info = readFasta()
-    kdMer(info['sequence'], info['k'], info['d'])
-    Assembler(info['k'], info['d'])
+    filename = input("Digite o nome do arquivo de entrada: (Exemplo: k5d2mer.txt)\n")
+    Assembler(filename)
